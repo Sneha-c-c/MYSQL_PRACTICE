@@ -1,0 +1,129 @@
+DBMS (Database Management System)
+
+A DBMS is software that allows us to store, organize, and manage data in a structured way.
+
+Example: A phonebook where you can insert, search, update, and delete contacts.
+
+Key features:
+
+Provides data storage.
+
+Ensures data security.
+
+Handles multiple users.
+
+Supports queries.
+
+
+
+RDBMS (Relational Database Management System)
+
+An RDBMS is a special type of DBMS that organizes data into tables (rows and columns) and allows relationships between tables.
+
+Based on E. F. Codd’s relational model.
+
+Key features:
+
+Stores data in tables (relations).
+
+Each row = record (tuple).
+
+Each column = attribute (field).
+
+Supports SQL (Structured Query Language).
+
+Enforces keys (Primary Key, Foreign Key).
+
+Ensures data integrity.
+
+
+
+MySQL – Definition
+
+MySQL is an open-source Relational Database Management System (RDBMS).
+
+It uses SQL (Structured Query Language) to store, manage, and retrieve data.
+
+It is widely used for web applications, enterprise software, and large-scale data management.
+
+Why is MySQL used?
+
+To store and manage structured data.
+
+To handle transactions with reliability (ACID compliance with InnoDB engine).
+
+To provide fast query performance.
+
+To support multiple users at the same time.
+
+
+
+
+ACID Properties in DBMS
+
+ACID stands for:
+
+A → Atomicity
+
+C → Consistency
+
+I → Isolation
+
+D → Durability
+
+
+1. Atomicity ("All or Nothing")
+
+A transaction is treated as one complete unit.
+
+Either all steps succeed or none of them are applied.
+
+If any step fails, everything is rolled back.
+
+💡 Example:
+If you transfer ₹1000 from Account A → Account B:
+
+Deduct 1000 from A.
+
+Add 1000 to B.
+If step 2 fails, step 1 is also undone → balance stays safe.
+
+👉 In MySQL → Handled using ROLLBACK on failure.
+
+2. Consistency ("Valid State → Valid State")
+
+The database must move from one valid state to another valid state after a transaction.
+
+Integrity rules and constraints must always be followed.
+
+💡 Example:
+If a column has a rule balance >= 0, after withdrawal you cannot leave it as -500.
+The transaction will fail to maintain consistency.
+
+👉 In MySQL → Handled with constraints like NOT NULL, CHECK, FOREIGN KEY.
+
+3. Isolation ("No Interference")
+
+Multiple transactions happening at the same time do not affect each other.
+
+Each transaction works as if it’s the only one running.
+
+💡 Example:
+Two people booking the last movie ticket online:
+
+Both try at the same time.
+
+Isolation ensures only one succeeds, the other gets a failure message.
+
+👉 In MySQL → Controlled using Transaction Isolation Levels (READ COMMITTED, SERIALIZABLE, etc.).
+
+4. Durability ("Once Saved, Always Saved")
+
+Once a transaction is committed, the changes are permanent.
+
+Even if there’s a power failure or crash, committed data won’t be lost.
+
+💡 Example:
+If money is transferred and you get a "Transaction Successful" message, the amount will stay updated even after a crash.
+
+👉 In MySQL → Handled by logs and commit records (COMMIT).
