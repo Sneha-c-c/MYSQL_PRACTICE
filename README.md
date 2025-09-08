@@ -130,3 +130,148 @@ If transfer is successful, money stays updated.
 -FLUSH PRIVILAGES;// Refresh the page
 -mysql -u username -p
 
+# 📚 MySQL Basics – Database, Tables, Queries & Data Types
+
+This guide walks through creating a database, adding tables, inserting data, running queries, and understanding MySQL data types.
+
+---
+
+## 🛠 Step 1: Create & Use a Database
+```sql
+CREATE DATABASE academy;
+USE academy;
+
+-CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    email VARCHAR(100) UNIQUE
+);
+
+# 📘 MySQL Basics – Creating Database, Tables, and Using Data Types
+
+## 🔹 Step 1: Create & Use a Database
+```sql
+CREATE DATABASE academy;
+USE academy;
+
+Create Your First Table
+
+We’ll make a simple students table.
+
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    email VARCHAR(100) UNIQUE
+);
+
+# MySQL Basics: First Schema, Table & Data
+
+This guide walks you through creating a database, building a table, inserting data, querying it, and performing updates/deletes in MySQL.
+
+---
+
+## Step 1: Create & Use a Database
+
+```sql
+CREATE DATABASE academy;
+USE academy;
+```
+
+## Step 2: Create Your First Table
+
+We’ll make a simple `students` table.
+
+```sql
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    email VARCHAR(100) UNIQUE
+);
+```
+
+- **student_id** → unique ID, auto-incremented.  
+- **name** → required (`NOT NULL`).  
+- **email** → must be unique.  
+- **age** → optional.  
+
+---
+
+## Step 3: Insert Some Data
+
+```sql
+INSERT INTO students (name, age, email)
+VALUES 
+  ('Sneha', 23, 'sneha@example.com'),
+  ('Rahul', 25, 'rahul@example.com'),
+  ('Ananya', 22, 'ananya@example.com');
+```
+
+---
+
+## Step 4: Query the Data
+
+```sql
+SELECT * FROM students;
+```
+
+---
+
+## Step 5: Update & Delete
+
+Update Sneha’s age:
+
+```sql
+UPDATE students
+SET age = 24
+WHERE name = 'Sneha';
+```
+
+Delete Rahul’s record:
+
+```sql
+DELETE FROM students
+WHERE name = 'Rahul';
+```
+
+Check remaining data:
+
+```sql
+SELECT * FROM students;
+```
+
+---
+
+## Common MySQL Data Types
+
+### Numbers
+- **INT** – whole numbers (±2 billion).  
+  *Example:* `age INT`  
+- **BIGINT** – very large whole numbers (e.g., bank account IDs).  
+- **DECIMAL(p,s)** – precise numbers (like money).  
+  *Example:* `salary DECIMAL(10,2)` → max 99999999.99  
+
+### Strings
+- **CHAR(n)** – fixed length. Good for short, uniform data (e.g., `'IN'`).  
+- **VARCHAR(n)** – variable length, max n. Best for names, emails, etc.  
+- **TEXT** – long text (articles, descriptions).  
+
+### Dates & Times
+- **DATE** – just year-month-day (e.g., `2025-09-04`).  
+- **DATETIME** – date + time (e.g., `2025-09-04 11:30:00`).  
+- **TIMESTAMP** – like `DATETIME`, but timezone-aware and smaller range. Often used for created/updated times.  
+
+### Booleans
+- **BOOLEAN** → actually stored as `TINYINT(1)` (`0 = false`, `1 = true`).  
+
+---
+
+## Summary
+This example demonstrates how to:
+1. Create and use a database.  
+2. Define a table with constraints.  
+3. Insert, query, update, and delete records.  
+4. Understand common MySQL data types.  
+
