@@ -121,67 +121,33 @@ If transfer is successful, money stays updated.
 
 ---
 
-## 📌 MySQL User Management
+## 👥 MySQL User Management  
 
-### ➤ Create a User
+### ➤ Create a User  
+
 ```sql
--CREATE USER 'username'@'host' IDENTIFIED BY 'password'; // Create a user with password where host is where database is accesses from  usually localhost / % - accesses from anywhere
--GRANT ALL PRIVILAGES ON '.' TO 'username'@'localhost'
--FLUSH PRIVILAGES;// Refresh the page
--mysql -u username -p
+CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost';
+FLUSH PRIVILEGES;
 
-# 📚 MySQL Basics – Database, Tables, Queries & Data Types
-
-This guide walks through creating a database, adding tables, inserting data, running queries, and understanding MySQL data types.
+-- Login
+mysql -u username -p
+```
 
 ---
 
-## 🛠 Step 1: Create & Use a Database
-```sql
-CREATE DATABASE academy;
-USE academy;
+# 🏗️ MySQL Basics – Database, Tables & Queries  
 
--CREATE TABLE students (
-    student_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    age INT,
-    email VARCHAR(100) UNIQUE
-);
-
-# 📘 MySQL Basics – Creating Database, Tables, and Using Data Types
-
-## 🔹 Step 1: Create & Use a Database
-```sql
-CREATE DATABASE academy;
-USE academy;
-
-Create Your First Table
-
-We’ll make a simple students table.
-
-CREATE TABLE students (
-    student_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    age INT,
-    email VARCHAR(100) UNIQUE
-);
-
-# MySQL Basics: First Schema, Table & Data
-
-This guide walks you through creating a database, building a table, inserting data, querying it, and performing updates/deletes in MySQL.
-
----
-
-## Step 1: Create & Use a Database
+## 1️⃣ Create & Use a Database  
 
 ```sql
 CREATE DATABASE academy;
 USE academy;
 ```
 
-## Step 2: Create Your First Table
+---
 
-We’ll make a simple `students` table.
+## 2️⃣ Create Your First Table  
 
 ```sql
 CREATE TABLE students (
@@ -192,14 +158,14 @@ CREATE TABLE students (
 );
 ```
 
-- **student_id** → unique ID, auto-incremented.  
-- **name** → required (`NOT NULL`).  
-- **email** → must be unique.  
+- **student_id** → auto-incremented, unique ID.  
+- **name** → required.  
 - **age** → optional.  
+- **email** → must be unique.  
 
 ---
 
-## Step 3: Insert Some Data
+## 3️⃣ Insert Data  
 
 ```sql
 INSERT INTO students (name, age, email)
@@ -211,7 +177,7 @@ VALUES
 
 ---
 
-## Step 4: Query the Data
+## 4️⃣ Query Data  
 
 ```sql
 SELECT * FROM students;
@@ -219,9 +185,9 @@ SELECT * FROM students;
 
 ---
 
-## Step 5: Update & Delete
+## 5️⃣ Update & Delete  
 
-Update Sneha’s age:
+Update Sneha’s age:  
 
 ```sql
 UPDATE students
@@ -229,49 +195,33 @@ SET age = 24
 WHERE name = 'Sneha';
 ```
 
-Delete Rahul’s record:
+Delete Rahul’s record:  
 
 ```sql
 DELETE FROM students
 WHERE name = 'Rahul';
 ```
 
-Check remaining data:
-
-```sql
-SELECT * FROM students;
-```
-
 ---
 
-## Common MySQL Data Types
+## 🔢 Common MySQL Data Types  
 
-### Numbers
-- **INT** – whole numbers (±2 billion).  
-  *Example:* `age INT`  
-- **BIGINT** – very large whole numbers (e.g., bank account IDs).  
-- **DECIMAL(p,s)** – precise numbers (like money).  
-  *Example:* `salary DECIMAL(10,2)` → max 99999999.99  
+### Numbers  
+- **INT** → whole numbers (±2 billion).  
+- **BIGINT** → very large numbers (e.g., IDs).  
+- **DECIMAL(p,s)** → precise numbers (e.g., `DECIMAL(10,2)`).  
 
-### Strings
-- **CHAR(n)** – fixed length. Good for short, uniform data (e.g., `'IN'`).  
-- **VARCHAR(n)** – variable length, max n. Best for names, emails, etc.  
-- **TEXT** – long text (articles, descriptions).  
+### Strings  
+- **CHAR(n)** → fixed length (e.g., country code `'IN'`).  
+- **VARCHAR(n)** → variable length (best for names, emails).  
+- **TEXT** → long text.  
 
-### Dates & Times
-- **DATE** – just year-month-day (e.g., `2025-09-04`).  
-- **DATETIME** – date + time (e.g., `2025-09-04 11:30:00`).  
-- **TIMESTAMP** – like `DATETIME`, but timezone-aware and smaller range. Often used for created/updated times.  
+### Dates & Times  
+- **DATE** → `2025-09-04`.  
+- **DATETIME** → `2025-09-04 11:30:00`.  
+- **TIMESTAMP** → timezone-aware, smaller range.  
 
-### Booleans
-- **BOOLEAN** → actually stored as `TINYINT(1)` (`0 = false`, `1 = true`).  
+### Booleans  
+- **BOOLEAN** → stored as `TINYINT(1)` (`0 = false`, `1 = true`).  
 
 ---
-
-## Summary
-This example demonstrates how to:
-1. Create and use a database.  
-2. Define a table with constraints.  
-3. Insert, query, update, and delete records.  
-4. Understand common MySQL data types.  
-
