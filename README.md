@@ -358,3 +358,145 @@ ALTER TABLE authors ADD INDEX idx_country (country);
 TRUNCATE TABLE authors;
 DROP TABLE authors;
 
+# MySQL DML, DCL, and TCL Cheat Sheet
+
+This document summarizes the core concepts of **DML (Data Manipulation Language)**, **DCL (Data Control Language)**, and **TCL (Transaction Control Language)** in MySQL with commands, variants, and examples.
+
+---
+
+## 🔹 2. DML — Data Manipulation Language
+
+**Purpose:** Manipulates the data inside tables.
+
+CRUD operations:
+
+* **Create** → `INSERT`
+* **Read** → `SELECT`
+* **Update** → `UPDATE`
+* **Delete** → `DELETE`
+
+### Commands
+
+* `SELECT` → read data
+* `INSERT` → add new rows
+* `UPDATE` → modify rows
+* `DELETE` → remove rows
+
+### MySQL Variants
+
+* **Multi-row inserts:**
+
+  ```sql
+  INSERT INTO table_name (col1, col2)
+  VALUES (...), (...);
+  ```
+* **INSERT IGNORE** → skips duplicates (but hides errors).
+* **INSERT ... ON DUPLICATE KEY UPDATE** → *upsert* (insert or update).
+* **REPLACE INTO** → delete + insert (⚠️ careful with FKs and triggers).
+
+### Examples
+
+```sql
+-- INSERT (Create)
+INSERT INTO users (email, is_active)
+VALUES ('alice@example.com', TRUE), ('bob@example.com', FALSE);
+
+-- SELECT (Read)
+SELECT user_id, email
+FROM users
+WHERE is_active = TRUE;
+
+-- UPDATE (Update)
+UPDATE users SET is_active = FALSE
+WHERE email = 'alice@example.com';
+
+-- DELETE (Delete)
+DELETE FROM users WHERE email = 'bob@example.com';
+```
+
+---
+
+## 🔹 3. DCL — Data Control Language
+
+**Purpose:** Manages permissions and security of the database.
+
+### Commands
+
+* `CREATE USER` → add new users.
+* `GRANT` → give privileges to users/roles.
+* `REVOKE` → remove privileges.
+* `CREATE ROLE` → group privileges into roles (**MySQL 8.0+**).
+
+### Examples
+
+```sql
+-- Create user
+CREATE USER 'report'@'%' IDENTIFIED BY 'Str0ng!pass';
+
+-- Create role and assign privileges
+CREATE ROLE 'reporting_role';
+GRANT SELECT ON appdb.* TO 'reporting_role';
+
+-- Assign role to user
+GRANT 'reporting_role' TO 'report'@'%';
+SET DEFAULT ROLE 'reporting_role' TO 'report'@'%';
+
+-- Revoke privilege
+REVOKE SELECT ON appdb.* FROM 'reporting_role';
+```
+
+💡 **Best Practice:** Use *Principle of Least Privilege* → grant only what’s necessary.
+
+---
+
+## 🔹 4. TCL — Transaction Control Language
+
+**Purpose:** Ensures consistency and manages transactions.
+
+### Commands
+
+* `START TRANSACTION` / `BEGIN` → start transaction
+* `COMMIT` → save changes
+* `ROLLBACK` → undo changes
+* `SAVEPOINT` → set a rollback point
+* `ROLLBACK TO SAVEPOINT` → undo to a point
+* `SET autocommit` → toggle auto-commit mode
+
+### Isolation Levels (InnoDB)
+
+1. **READ UNCOMMITTED**
+2. **READ COMMITTED**
+3. **REPEATABLE READ** (default)
+4. **SERIALIZABLE**
+
+### Example
+
+```sql
+-- Start transaction
+START TRANSACTION;
+
+INSERT INTO orders (user_id, amount) VALUES (1, 99.99);
+
+SAVEPOINT step1;
+
+UPDATE orders SET amount = 89.99 WHERE user_id = 1;
+
+ROLLBACK TO step1;  -- undo update but keep insert
+
+COMMIT;  -- finalize changes
+```
+
+---
+
+## 🔹 CRUD Quick Reference
+
+| Operation  | Command  | Example                                                   |
+| ---------- | -------- | --------------------------------------------------------- |
+| **Create** | `INSERT` | `INSERT INTO users (email) VALUES ('alice@example.com');` |
+| **Read**   | `SELECT` | `SELECT * FROM users WHERE is_active=1;`                  |
+| **Update** | `UPDATE` | `UPDATE users SET is_active=0 WHERE user_id=1;`           |
+| **Delete** | `DELETE` | `DELETE FROM users WHERE user_id=1;`                      |
+
+---
+
+
