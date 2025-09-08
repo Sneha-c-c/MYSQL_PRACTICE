@@ -280,6 +280,7 @@ CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   is_active BOOLEAN
 );
+---
 
 ## 🔹 ENUM
 
@@ -288,6 +289,7 @@ CREATE TABLE users (
 Example:
 
 -status ENUM('active', 'inactive', 'banned')
+---
 
 ## 🔹 SET
 
