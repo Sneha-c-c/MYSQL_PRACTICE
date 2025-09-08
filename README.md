@@ -280,21 +280,38 @@ CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   is_active BOOLEAN
 );
+
 ---
 
 ## 🔹 ENUM
 
-#Single value from a predefined list.
+- **Definition:** Stores a single value from a predefined list.  
+- **Use case:** When a column should only accept **one value** from a fixed set.  
 
-Example:
+**Example:**
 
--status ENUM('active', 'inactive', 'banned')
+```sql
+status ENUM('active', 'inactive', 'banned')
+
 ---
 
-## 🔹 SET
+# 📘 MySQL SET Data Type
 
-#Multiple values from a predefined list.
+The **SET** data type in MySQL allows a column to store **multiple values** from a predefined list.  
 
-Example:
+---
 
--features SET('Eco-Friendly', 'Durable', 'Waterproof')
+## 🔹 Definition
+- Stores **zero or more values** chosen from a fixed set of options.
+- Useful for features, tags, or multiple attributes that a single row can have.
+
+---
+
+## 🔹 Example
+
+```sql
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    features SET('Eco-Friendly', 'Durable', 'Waterproof')
+);
