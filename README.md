@@ -1,249 +1,132 @@
-# **MySQL Basics - README**
+# MYSQL 
+## 📌 DBMS (Database Management System)
 
-## **1. Introduction to MySQL**
-MySQL is a **Relational Database Management System (RDBMS)** used to store and manage structured data. It follows the SQL (Structured Query Language) standard and is widely used for web applications, data management, and enterprise solutions.
+A **DBMS** is software that allows us to store, organize, and manage data in a structured way.  
 
-### **DBMS vs. RDBMS**
-- **DBMS (Database Management System)**: A software system that manages databases but does not enforce relationships between tables.
-- **RDBMS (Relational Database Management System)**: A database system that supports relationships between tables using constraints like **Primary Key** and **Foreign Key**.
+**Example:** A phonebook where you can insert, search, update, and delete contacts.  
 
----
-
-## **2. Managing Tables**
-### **Create Table**
-#### Definition:
-The `CREATE TABLE` statement is used to define a new table in MySQL, specifying its columns, data types, and constraints.
-#### Query:
-```sql
-CREATE TABLE Employees (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    age INT,
-    salary DECIMAL(10,2) DEFAULT 50000.00
-);
-```
-
-### **Auto Increment**
-#### Definition:
-The `AUTO_INCREMENT` attribute automatically generates unique numeric values for a column.
-#### Example:
-```sql
-CREATE TABLE Products (
-    product_id INT PRIMARY KEY AUTO_INCREMENT,
-    product_name VARCHAR(100)
-);
-```
-
-### **Rename Table**
-#### Definition:
-The `RENAME TABLE` statement renames an existing table.
-#### Query:
-```sql
-RENAME TABLE Employees TO Staff;
-```
-
-### **Add Column**
-#### Definition:
-The `ALTER TABLE` statement is used to add a new column to an existing table.
-#### Query:
-```sql
-ALTER TABLE Employees ADD COLUMN department VARCHAR(50);
-```
-
-### **Drop Column**
-#### Definition:
-The `ALTER TABLE DROP COLUMN` statement removes a column from an existing table.
-#### Query:
-```sql
-ALTER TABLE Employees DROP COLUMN department;
-```
-
-### **Drop Table**
-#### Definition:
-The `DROP TABLE` statement permanently deletes a table and all its data.
-#### Query:
-```sql
-DROP TABLE Employees;
-```
-
-### **Temporary Tables**
-#### Definition:
-Temporary tables exist only for the duration of a session or transaction.
-#### Query:
-```sql
-CREATE TEMPORARY TABLE TempEmployees (
-    id INT, name VARCHAR(100)
-);
-```
-
-### **Generated Columns**
-#### Definition:
-Generated columns automatically compute values based on other columns.
-#### Query:
-```sql
-CREATE TABLE Orders (
-    order_id INT PRIMARY KEY,
-    price DECIMAL(10,2),
-    tax DECIMAL(10,2) GENERATED ALWAYS AS (price * 0.1) STORED
-);
-```
+### 🔑 Key Features
+- Provides data storage.
+- Ensures data security.
+- Handles multiple users.
+- Supports queries.
 
 ---
 
-## **3. MySQL Constraints**
-### **Primary Key**
-#### Definition:
-A `PRIMARY KEY` uniquely identifies each record in a table.
-#### Query:
-```sql
-CREATE TABLE Users (
-    user_id INT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
-);
-```
+## 📌 RDBMS (Relational Database Management System)
 
-### **Foreign Key**
-#### Definition:
-A `FOREIGN KEY` enforces a link between two tables to maintain referential integrity.
-#### Query:
-```sql
-CREATE TABLE Orders (
-    order_id INT PRIMARY KEY,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-```
+An **RDBMS** is a special type of DBMS that organizes data into **tables (rows & columns)** and allows **relationships between tables**.  
+It is based on **E. F. Codd’s relational model**.
 
-### **Disable Foreign Key Checks**
-#### Definition:
-Disables foreign key constraints temporarily.
-#### Query:
-```sql
-SET FOREIGN_KEY_CHECKS = 0;
-```
-
-### **Unique Constraint**
-#### Definition:
-Ensures all values in a column are unique.
-#### Query:
-```sql
-ALTER TABLE Users ADD CONSTRAINT UNIQUE (name);
-```
-
-### **Not Null Constraint**
-#### Definition:
-Ensures a column cannot have NULL values.
-#### Query:
-```sql
-ALTER TABLE Users MODIFY name VARCHAR(100) NOT NULL;
-```
-
-### **Default Constraint**
-#### Definition:
-Assigns a default value to a column when no value is specified.
-#### Query:
-```sql
-ALTER TABLE Employees ALTER salary SET DEFAULT 60000.00;
-```
-
-### **Check Constraint**
-#### Definition:
-Restricts values in a column based on a condition.
-#### Query:
-```sql
-CREATE TABLE Employees (
-    id INT PRIMARY KEY,
-    age INT CHECK (age >= 18)
-);
-```
+### 🔑 Key Features
+- Stores data in **tables (relations)**.
+- Each row = **record (tuple)**.  
+- Each column = **attribute (field)**.  
+- Supports **SQL (Structured Query Language)**.  
+- Enforces **keys (Primary Key, Foreign Key)**.  
+- Ensures **data integrity**.
 
 ---
 
-## **4. Insert Data**
-### **Insert Single Row**
-#### Definition:
-Adds a single row into a table.
-#### Query:
-```sql
-INSERT INTO Employees (name, age, salary) VALUES ('John Doe', 30, 55000.00);
-```
+## 📌 MySQL – Definition
 
-### **Insert Multiple Rows**
-#### Definition:
-Inserts multiple records at once.
-#### Query:
-```sql
-INSERT INTO Employees (name, age, salary) VALUES
-('Alice', 25, 50000.00),
-('Bob', 35, 60000.00);
-```
+**MySQL** is an open-source **Relational Database Management System (RDBMS)**.  
+It uses **SQL** to store, manage, and retrieve data.  
 
-### **Insert Using Another Table (INSERT INTO SELECT)**
-#### Definition:
-Copies data from one table into another.
-#### Query:
-```sql
-INSERT INTO Employees (name, age, salary)
-SELECT name, age, salary FROM TempEmployees;
-```
+### 💡 Why is MySQL used?
+- To **store and manage structured data**.  
+- To handle **transactions reliably** (ACID compliance with InnoDB).  
+- To provide **fast query performance**.  
+- To support **multiple users concurrently**.  
 
 ---
 
-## **5. Update Data**
-### **Basic Update**
-#### Definition:
-Modifies existing records in a table.
-#### Query:
-```sql
-UPDATE Employees SET salary = 65000 WHERE id = 1;
-```
+## 📌 ACID Properties in DBMS
 
-### **Update with JOIN**
-#### Definition:
-Updates data in a table using values from another table.
-#### Query:
-```sql
-UPDATE Employees
-JOIN Departments ON Employees.department_id = Departments.id
-SET Employees.salary = Employees.salary * 1.1
-WHERE Departments.name = 'HR';
-```
+ACID stands for:  
+- **A → Atomicity**  
+- **C → Consistency**  
+- **I → Isolation**  
+- **D → Durability**
 
----
+### 1️⃣ Atomicity – *"All or Nothing"*
+- A transaction is treated as one unit:  
+  - Either all steps succeed, or none are applied.  
+- If any step fails → everything is rolled back.  
 
-## **6. Delete Data**
-### **Delete with Join**
-#### Definition:
-Deletes records by referencing another table.
-#### Query:
-```sql
-DELETE Employees FROM Employees
-JOIN Departments ON Employees.department_id = Departments.id
-WHERE Departments.name = 'HR';
-```
+**Example:**  
+Transfer ₹1000 from Account A → B  
+- Step 1: Deduct ₹1000 from A  
+- Step 2: Add ₹1000 to B  
+- If Step 2 fails, Step 1 is undone.  
+
+👉 In MySQL: Handled using **ROLLBACK** on failure.  
 
 ---
 
-## **7. Transactions & Table Locking**
-### **Transactions**
-#### Definition:
-Ensures atomicity, consistency, isolation, and durability (ACID) for database operations.
-#### Query:
+### 2️⃣ Consistency – *"Valid State → Valid State"*
+- Database must move from one **valid state** to another.  
+- Constraints & rules must always be followed.  
+
+**Example:**  
+If `balance >= 0`, withdrawal cannot leave balance at -500.  
+
+👉 In MySQL: Handled with **NOT NULL, CHECK, FOREIGN KEY** constraints.  
+
+---
+
+### 3️⃣ Isolation – *"No Interference"*
+- Multiple transactions don’t affect each other.  
+
+**Example:**  
+Two people booking the **last movie ticket**:  
+- Only one succeeds, the other fails gracefully.  
+
+👉 In MySQL: Controlled using **Transaction Isolation Levels** (`READ COMMITTED`, `SERIALIZABLE`, etc.).  
+
+---
+
+### 4️⃣ Durability – *"Once Saved, Always Saved"*
+- Once committed, changes are **permanent**.  
+- Data remains even after crash or power failure.  
+
+**Example:**  
+If transfer is successful, money stays updated.  
+
+👉 In MySQL: Handled by **logs & commit records (COMMIT)**.  
+
+---
+
+## 📌 Table – Definition
+
+- A **table** is the basic unit of storage in an RDBMS.  
+- Stores data in **rows (records)** and **columns (attributes)**.  
+
+---
+
+## 📌 Primary Key
+
+- A **Primary Key** uniquely identifies each row in a table.  
+- Rules:
+  - Must be **unique**.  
+  - Cannot be **NULL**.  
+
+---
+
+## 📌 Foreign Key
+
+- A **Foreign Key** links one table to another.  
+- It refers to the **Primary Key** in another table.  
+- Ensures **referential integrity** (no invalid references).  
+
+---
+
+## 📌 MySQL User Management
+
+### ➤ Create a User
 ```sql
-START TRANSACTION;
-UPDATE Employees SET salary = salary + 5000 WHERE id = 1;
-COMMIT;
-```
-
-### **Table Locking**
-#### Definition:
-Prevents concurrent modifications by locking a table during operations.
-#### Query:
-```sql
-LOCK TABLES Employees WRITE;
-UPDATE Employees SET salary = 75000 WHERE id = 1;
-UNLOCK TABLES;
-```
-
-
+-CREATE USER 'username'@'host' IDENTIFIED BY 'password'; // Create a user with password where host is where database is accesses from  usually localhost / % - accesses from anywhere
+-GRANT ALL PRIVILAGES ON '.' TO 'username'@'localhost'
+-FLUSH PRIVILAGES;// Refresh the page
+-mysql -u username -p
 
