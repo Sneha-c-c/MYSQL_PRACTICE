@@ -224,4 +224,75 @@ WHERE name = 'Rahul';
 ### Booleans  
 - **BOOLEAN** → stored as `TINYINT(1)` (`0 = false`, `1 = true`).  
 
+## 🔹 1. Numeric Data Types
+
+| Type         | Storage    | Range (Signed)                          | Example Usage             |
+|--------------|------------|------------------------------------------|---------------------------|
+| `TINYINT`    | 1 byte     | -128 to 127                             | Flags, Boolean values     |
+| `SMALLINT`   | 2 bytes    | -32,768 to 32,767                       | Small counters            |
+| `MEDIUMINT`  | 3 bytes    | -8,388,608 to 8,388,607                 | Medium-sized counters     |
+| `INT`        | 4 bytes    | -2,147,483,648 to 2,147,483,647         | IDs, age, counts          |
+| `BIGINT`     | 8 bytes    | ~±9.22e18                               | Large IDs, financial data |
+| `DECIMAL(M,D)` | Varies   | Exact fixed-point numbers               | Money, accounting         |
+| `FLOAT`      | 4 bytes    | Approximate floating point              | Sensor data, scientific   |
+| `DOUBLE`     | 8 bytes    | Higher precision floating point         | Scientific data           |
+
+💡 **Tip:** Use `DECIMAL` for financial calculations to avoid rounding errors.
+
 ---
+
+## 🔹 2. String Data Types
+
+| Type       | Description                         | Example Usage            |
+|------------|-------------------------------------|--------------------------|
+| `CHAR(n)`  | Fixed-length string (0–255 chars)   | Country codes (`US`, `IN`) |
+| `VARCHAR(n)` | Variable-length string (0–65535) | Names, emails            |
+| `TEXT`     | Large text (up to 65,535 chars)     | Blog posts, descriptions |
+| `BLOB`     | Binary data (up to 65,535 bytes)    | Images, files            |
+
+### Variants
+- `TINYTEXT`, `TEXT`, `MEDIUMTEXT`, `LONGTEXT` (increasing storage size).
+- `TINYBLOB`, `BLOB`, `MEDIUMBLOB`, `LONGBLOB`.
+
+---
+
+## 🔹 3. Date and Time Data Types
+
+| Type        | Format              | Example              | Usage                  |
+|-------------|---------------------|----------------------|------------------------|
+| `DATE`      | `YYYY-MM-DD`        | `2025-09-08`         | Birthdays              |
+| `DATETIME`  | `YYYY-MM-DD HH:MM:SS` | `2025-09-08 12:30:45` | Orders, events         |
+| `TIMESTAMP` | UTC `YYYY-MM-DD HH:MM:SS` | Auto-updates | Audit trails           |
+| `TIME`      | `HH:MM:SS`          | `14:35:00`           | Duration, shifts       |
+| `YEAR`      | `YYYY`              | `2025`               | Year-only fields       |
+
+💡 **Tip:** Use `TIMESTAMP` for “last modified” fields (auto-update feature).
+
+---
+
+## 🔹 4. Boolean Data Type
+
+- `BOOLEAN` / `BOOL` is stored as `TINYINT(1)` internally.
+- `0 = FALSE`, `1 = TRUE`.
+
+```sql
+CREATE TABLE users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  is_active BOOLEAN
+);
+
+## 🔹 ENUM
+
+#Single value from a predefined list.
+
+Example:
+
+-status ENUM('active', 'inactive', 'banned')
+
+## 🔹 SET
+
+#Multiple values from a predefined list.
+
+Example:
+
+-features SET('Eco-Friendly', 'Durable', 'Waterproof')
