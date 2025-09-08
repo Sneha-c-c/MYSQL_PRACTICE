@@ -1,129 +1,133 @@
-DBMS (Database Management System)
+# Database Concepts – DBMS, RDBMS, MySQL, and ACID Properties
 
-A DBMS is software that allows us to store, organize, and manage data in a structured way.
+## 📌 DBMS (Database Management System)
 
-Example: A phonebook where you can insert, search, update, and delete contacts.
+A **DBMS** is software that allows us to store, organize, and manage data in a structured way.  
 
-Key features:
+**Example:** A phonebook where you can insert, search, update, and delete contacts.  
 
-Provides data storage.
+### 🔑 Key Features
+- Provides data storage.
+- Ensures data security.
+- Handles multiple users.
+- Supports queries.
 
-Ensures data security.
+---
 
-Handles multiple users.
+## 📌 RDBMS (Relational Database Management System)
 
-Supports queries.
+An **RDBMS** is a special type of DBMS that organizes data into **tables (rows & columns)** and allows **relationships between tables**.  
+It is based on **E. F. Codd’s relational model**.
 
+### 🔑 Key Features
+- Stores data in **tables (relations)**.
+- Each row = **record (tuple)**.  
+- Each column = **attribute (field)**.  
+- Supports **SQL (Structured Query Language)**.  
+- Enforces **keys (Primary Key, Foreign Key)**.  
+- Ensures **data integrity**.
 
+---
 
-RDBMS (Relational Database Management System)
+## 📌 MySQL – Definition
 
-An RDBMS is a special type of DBMS that organizes data into tables (rows and columns) and allows relationships between tables.
+**MySQL** is an open-source **Relational Database Management System (RDBMS)**.  
+It uses **SQL** to store, manage, and retrieve data.  
 
-Based on E. F. Codd’s relational model.
+### 💡 Why is MySQL used?
+- To **store and manage structured data**.  
+- To handle **transactions reliably** (ACID compliance with InnoDB).  
+- To provide **fast query performance**.  
+- To support **multiple users concurrently**.  
 
-Key features:
+---
 
-Stores data in tables (relations).
+## 📌 ACID Properties in DBMS
 
-Each row = record (tuple).
+ACID stands for:  
+- **A → Atomicity**  
+- **C → Consistency**  
+- **I → Isolation**  
+- **D → Durability**
 
-Each column = attribute (field).
+### 1️⃣ Atomicity – *"All or Nothing"*
+- A transaction is treated as one unit:  
+  - Either all steps succeed, or none are applied.  
+- If any step fails → everything is rolled back.  
 
-Supports SQL (Structured Query Language).
+**Example:**  
+Transfer ₹1000 from Account A → B  
+- Step 1: Deduct ₹1000 from A  
+- Step 2: Add ₹1000 to B  
+- If Step 2 fails, Step 1 is undone.  
 
-Enforces keys (Primary Key, Foreign Key).
+👉 In MySQL: Handled using **ROLLBACK** on failure.  
 
-Ensures data integrity.
+---
 
+### 2️⃣ Consistency – *"Valid State → Valid State"*
+- Database must move from one **valid state** to another.  
+- Constraints & rules must always be followed.  
 
+**Example:**  
+If `balance >= 0`, withdrawal cannot leave balance at -500.  
 
-MySQL – Definition
+👉 In MySQL: Handled with **NOT NULL, CHECK, FOREIGN KEY** constraints.  
 
-MySQL is an open-source Relational Database Management System (RDBMS).
+---
 
-It uses SQL (Structured Query Language) to store, manage, and retrieve data.
+### 3️⃣ Isolation – *"No Interference"*
+- Multiple transactions don’t affect each other.  
 
-It is widely used for web applications, enterprise software, and large-scale data management.
+**Example:**  
+Two people booking the **last movie ticket**:  
+- Only one succeeds, the other fails gracefully.  
 
-Why is MySQL used?
+👉 In MySQL: Controlled using **Transaction Isolation Levels** (`READ COMMITTED`, `SERIALIZABLE`, etc.).  
 
-To store and manage structured data.
+---
 
-To handle transactions with reliability (ACID compliance with InnoDB engine).
+### 4️⃣ Durability – *"Once Saved, Always Saved"*
+- Once committed, changes are **permanent**.  
+- Data remains even after crash or power failure.  
 
-To provide fast query performance.
+**Example:**  
+If transfer is successful, money stays updated.  
 
-To support multiple users at the same time.
+👉 In MySQL: Handled by **logs & commit records (COMMIT)**.  
 
+---
 
+## 📌 Table – Definition
 
+- A **table** is the basic unit of storage in an RDBMS.  
+- Stores data in **rows (records)** and **columns (attributes)**.  
 
-ACID Properties in DBMS
+---
 
-ACID stands for:
+## 📌 Primary Key
 
-A → Atomicity
+- A **Primary Key** uniquely identifies each row in a table.  
+- Rules:
+  - Must be **unique**.  
+  - Cannot be **NULL**.  
 
-C → Consistency
+---
 
-I → Isolation
+## 📌 Foreign Key
 
-D → Durability
+- A **Foreign Key** links one table to another.  
+- It refers to the **Primary Key** in another table.  
+- Ensures **referential integrity** (no invalid references).  
 
+---
 
-1. Atomicity ("All or Nothing")
+## 📌 MySQL User Management
 
-A transaction is treated as one complete unit.
+### ➤ Create a User
+```sql
+-CREATE USER 'username'@'host' IDENTIFIED BY 'password'; // Create a user with password where host is where database is accesses from  usually localhost / % - accesses from anywhere
+-GRANT ALL PRIVILAGES ON '.' TO 'username'@'localhost'
+-FLUSH PRIVILAGES;// Refresh the page
+-mysql -u username -p
 
-Either all steps succeed or none of them are applied.
-
-If any step fails, everything is rolled back.
-
-💡 Example:
-If you transfer ₹1000 from Account A → Account B:
-
-Deduct 1000 from A.
-
-Add 1000 to B.
-If step 2 fails, step 1 is also undone → balance stays safe.
-
-👉 In MySQL → Handled using ROLLBACK on failure.
-
-2. Consistency ("Valid State → Valid State")
-
-The database must move from one valid state to another valid state after a transaction.
-
-Integrity rules and constraints must always be followed.
-
-💡 Example:
-If a column has a rule balance >= 0, after withdrawal you cannot leave it as -500.
-The transaction will fail to maintain consistency.
-
-👉 In MySQL → Handled with constraints like NOT NULL, CHECK, FOREIGN KEY.
-
-3. Isolation ("No Interference")
-
-Multiple transactions happening at the same time do not affect each other.
-
-Each transaction works as if it’s the only one running.
-
-💡 Example:
-Two people booking the last movie ticket online:
-
-Both try at the same time.
-
-Isolation ensures only one succeeds, the other gets a failure message.
-
-👉 In MySQL → Controlled using Transaction Isolation Levels (READ COMMITTED, SERIALIZABLE, etc.).
-
-4. Durability ("Once Saved, Always Saved")
-
-Once a transaction is committed, the changes are permanent.
-
-Even if there’s a power failure or crash, committed data won’t be lost.
-
-💡 Example:
-If money is transferred and you get a "Transaction Successful" message, the amount will stay updated even after a crash.
-
-👉 In MySQL → Handled by logs and commit records (COMMIT).
