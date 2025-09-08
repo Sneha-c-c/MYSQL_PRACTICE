@@ -268,46 +268,48 @@ WHERE name = 'Rahul';
 
 💡 **Tip:** Use `TIMESTAMP` for “last modified” fields (auto-update feature).
 
+
 ---
 
-## 🔹 4. Boolean Data Type
+## 🔹 1. Boolean Data Type
 
-- `BOOLEAN` / `BOOL` is stored as `TINYINT(1)` internally.
-- `0 = FALSE`, `1 = TRUE`.
+* `BOOLEAN` / `BOOL` is stored as `TINYINT(1)` internally.
+* `0 = FALSE`, `1 = TRUE`.
+
+**Example:**
 
 ```sql
 CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   is_active BOOLEAN
 );
+```
 
 ---
 
-## 🔹 ENUM
+## 🔹 2. ENUM Data Type
 
-- **Definition:** Stores a single value from a predefined list.  
-- **Use case:** When a column should only accept **one value** from a fixed set.  
+* **Definition:** Stores a single value from a predefined list.
+* **Use case:** When a column should only accept **one value** from a fixed set.
 
 **Example:**
 
 ```sql
 status ENUM('active', 'inactive', 'banned')
+```
 
 ---
 
-# 📘 MySQL SET Data Type
+## 🔹 3. SET Data Type
 
-The **SET** data type in MySQL allows a column to store **multiple values** from a predefined list.  
+The **SET** data type allows a column to store **multiple values** from a predefined list.
 
----
+### Definition
 
-## 🔹 Definition
-- Stores **zero or more values** chosen from a fixed set of options.
-- Useful for features, tags, or multiple attributes that a single row can have.
+* Stores **zero or more values** chosen from a fixed set of options.
+* Useful for features, tags, or multiple attributes that a single row can have.
 
----
-
-## 🔹 Example
+### Example
 
 ```sql
 CREATE TABLE products (
@@ -315,35 +317,34 @@ CREATE TABLE products (
     name VARCHAR(50) NOT NULL,
     features SET('Eco-Friendly', 'Durable', 'Waterproof')
 );
-
-
-# 📘 SQL Categories & CRUD in MySQL
-
-This document explains the four major **SQL categories**—DDL, DML, DCL, TCL—and the CRUD operations (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) with MySQL-focused examples, tips, and interview insights.
+```
 
 ---
 
-## 🔹 SQL Categories Overview
+## 🔹 4. SQL Categories Overview
 
-| Category | Full Form                  | Purpose                                   | Examples                          |
-|----------|----------------------------|-------------------------------------------|-----------------------------------|
-| DDL      | Data Definition Language   | Defines database structure                | `CREATE`, `ALTER`, `DROP`, `TRUNCATE` |
-| DML      | Data Manipulation Language | Works with data inside tables             | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
-| DCL      | Data Control Language      | Manages user access and permissions       | `GRANT`, `REVOKE`, `CREATE USER`       |
-| TCL      | Transaction Control Language | Controls transactions & consistency    | `COMMIT`, `ROLLBACK`, `SAVEPOINT`      |
+| Category | Full Form                    | Purpose                             | Examples                               |
+| -------- | ---------------------------- | ----------------------------------- | -------------------------------------- |
+| **DDL**  | Data Definition Language     | Defines database structure          | `CREATE`, `ALTER`, `DROP`, `TRUNCATE`  |
+| **DML**  | Data Manipulation Language   | Works with data inside tables       | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
+| **DCL**  | Data Control Language        | Manages user access and permissions | `GRANT`, `REVOKE`, `CREATE USER`       |
+| **TCL**  | Transaction Control Language | Controls transactions & consistency | `COMMIT`, `ROLLBACK`, `SAVEPOINT`      |
 
 ---
 
-## 1) DDL — Data Definition Language
+## 🔹 5. DDL — Data Definition Language
+
 Defines and changes **database structure**.
 
 ### Common Commands
-- `CREATE` — Make new databases, tables, indexes
-- `ALTER` — Modify schema
-- `DROP` — Remove databases or tables
-- `TRUNCATE` — Empty a table (keeps structure)
+
+* `CREATE` — Make new databases, tables, indexes
+* `ALTER` — Modify schema
+* `DROP` — Remove databases or tables
+* `TRUNCATE` — Empty a table (keeps structure)
 
 ### Example
+
 ```sql
 CREATE DATABASE library;
 USE library;
@@ -357,30 +358,20 @@ CREATE TABLE authors (
 ALTER TABLE authors ADD INDEX idx_country (country);
 TRUNCATE TABLE authors;
 DROP TABLE authors;
-
-# MySQL DML, DCL, and TCL Cheat Sheet
-
-This document summarizes the core concepts of **DML (Data Manipulation Language)**, **DCL (Data Control Language)**, and **TCL (Transaction Control Language)** in MySQL with commands, variants, and examples.
+```
 
 ---
 
-## 🔹 2. DML — Data Manipulation Language
+## 🔹 6. DML — Data Manipulation Language
 
 **Purpose:** Manipulates the data inside tables.
 
-CRUD operations:
+### CRUD Operations
 
 * **Create** → `INSERT`
 * **Read** → `SELECT`
 * **Update** → `UPDATE`
 * **Delete** → `DELETE`
-
-### Commands
-
-* `SELECT` → read data
-* `INSERT` → add new rows
-* `UPDATE` → modify rows
-* `DELETE` → remove rows
 
 ### MySQL Variants
 
@@ -391,7 +382,7 @@ CRUD operations:
   VALUES (...), (...);
   ```
 * **INSERT IGNORE** → skips duplicates (but hides errors).
-* **INSERT ... ON DUPLICATE KEY UPDATE** → *upsert* (insert or update).
+* **INSERT ... ON DUPLICATE KEY UPDATE** → upsert (insert or update).
 * **REPLACE INTO** → delete + insert (⚠️ careful with FKs and triggers).
 
 ### Examples
@@ -416,7 +407,7 @@ DELETE FROM users WHERE email = 'bob@example.com';
 
 ---
 
-## 🔹 3. DCL — Data Control Language
+## 🔹 7. DCL — Data Control Language
 
 **Purpose:** Manages permissions and security of the database.
 
@@ -449,7 +440,7 @@ REVOKE SELECT ON appdb.* FROM 'reporting_role';
 
 ---
 
-## 🔹 4. TCL — Transaction Control Language
+## 🔹 8. TCL — Transaction Control Language
 
 **Purpose:** Ensures consistency and manages transactions.
 
@@ -488,7 +479,7 @@ COMMIT;  -- finalize changes
 
 ---
 
-## 🔹 CRUD Quick Reference
+## 🔹 9. CRUD Quick Reference
 
 | Operation  | Command  | Example                                                   |
 | ---------- | -------- | --------------------------------------------------------- |
@@ -498,5 +489,4 @@ COMMIT;  -- finalize changes
 | **Delete** | `DELETE` | `DELETE FROM users WHERE user_id=1;`                      |
 
 ---
-
 
