@@ -315,3 +315,46 @@ CREATE TABLE products (
     name VARCHAR(50) NOT NULL,
     features SET('Eco-Friendly', 'Durable', 'Waterproof')
 );
+
+
+# 📘 SQL Categories & CRUD in MySQL
+
+This document explains the four major **SQL categories**—DDL, DML, DCL, TCL—and the CRUD operations (`SELECT`, `INSERT`, `UPDATE`, `DELETE`) with MySQL-focused examples, tips, and interview insights.
+
+---
+
+## 🔹 SQL Categories Overview
+
+| Category | Full Form                  | Purpose                                   | Examples                          |
+|----------|----------------------------|-------------------------------------------|-----------------------------------|
+| DDL      | Data Definition Language   | Defines database structure                | `CREATE`, `ALTER`, `DROP`, `TRUNCATE` |
+| DML      | Data Manipulation Language | Works with data inside tables             | `SELECT`, `INSERT`, `UPDATE`, `DELETE` |
+| DCL      | Data Control Language      | Manages user access and permissions       | `GRANT`, `REVOKE`, `CREATE USER`       |
+| TCL      | Transaction Control Language | Controls transactions & consistency    | `COMMIT`, `ROLLBACK`, `SAVEPOINT`      |
+
+---
+
+## 1) DDL — Data Definition Language
+Defines and changes **database structure**.
+
+### Common Commands
+- `CREATE` — Make new databases, tables, indexes
+- `ALTER` — Modify schema
+- `DROP` — Remove databases or tables
+- `TRUNCATE` — Empty a table (keeps structure)
+
+### Example
+```sql
+CREATE DATABASE library;
+USE library;
+
+CREATE TABLE authors (
+  author_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(200) NOT NULL,
+  country VARCHAR(80)
+) ENGINE=InnoDB;
+
+ALTER TABLE authors ADD INDEX idx_country (country);
+TRUNCATE TABLE authors;
+DROP TABLE authors;
+
